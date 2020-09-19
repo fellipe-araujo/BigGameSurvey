@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./styles.css";
 import { RecordsResponse } from "./types";
 import { formatDate } from "./helpers";
 import Pagination from "./Pagination";
 import Filters from '../../components/Filters';
-
-const BASE_URL = "http://localhost:8080";
+import api from '../../services/api';
 
 const Records = () => {
   const [recordsResponse, setRecordsResponse] = useState<RecordsResponse>();
@@ -17,8 +15,8 @@ const Records = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/records?linesPerPage=12&page=${activePage}`)
+    api
+      .get(`/records?linesPerPage=12&page=${activePage}`)
       .then((response) => setRecordsResponse(response.data));
   }, [activePage]);
 
